@@ -87,8 +87,8 @@ export function PresetGrid() {
         ctx.drawImage(img, x, y, scaledWidth, scaledHeight)
 
         // Reference the text and frame logic from ProfileFrameGenerator
-        const displayText = `#${config.text.toUpperCase()}`
-        ctx.font = `bold 24px Arial`
+        const displayText = config.text.toUpperCase()
+        ctx.font = `bold 24px Inter`
 
         // Configure letter spacing
         const letterSpacing = 24 * 0.15

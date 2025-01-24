@@ -71,11 +71,11 @@ export function ProfileFrameGenerator() {
         ctx.drawImage(img, x, y, scaledWidth, scaledHeight)
 
         // Prepare text with formatting
-        const displayText = `#${frameConfig.text.toUpperCase()}`
-        ctx.font = `bold ${frameConfig.textSize}px Arial`
+        const displayText = frameConfig.text.toUpperCase()
+        ctx.font = `bold ${frameConfig.textSize}px Inter`
 
         // Configure letter spacing
-        const letterSpacing = frameConfig.textSize * 0.15
+        const letterSpacing = 24 * 0.15
         const textWidth = ctx.measureText(displayText).width + (letterSpacing * (displayText.length - 1))
         const radius = 175
 
@@ -267,7 +267,7 @@ export function ProfileFrameGenerator() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Prepare text with formatting
-      const displayText = `#${frameConfig.text.toUpperCase()}`;
+      const displayText = frameConfig.text.toUpperCase();
       ctx.font = `bold ${frameConfig.textSize}px Arial`;
 
       // Configure letter spacing
@@ -365,16 +365,16 @@ export function ProfileFrameGenerator() {
   }, [frameConfig])
 
   return (
-    <div className="bg-white shadow-sm pl-[150px] pr-[150px] pt-[80px] pb-[80px] rounded-[16px]">
+    <div style={{ width: '1202px', height: '559px', flexShrink: '0', borderRadius: '16px', background: '#FFF', boxShadow: '0px 4px 23.2px 0px rgba(0, 0, 0, 0.07)' }} className="flex flex-col items-center justify-center mt-[77px]">
       <div className="grid md:grid-cols-2 gap-8">
-        <div className="main-container flex flex-col gap-12 items-start flex-nowrap relative">
+        <div className="main-container flex w-[454px] flex-col gap-[48px] items-start flex-nowrap relative mx-auto mt-[75px] mb-[145px] mr-[645px] ml-[103px]">
           <div className="flex flex-col gap-2 items-start shrink-0 flex-nowrap relative">
-            <h1 className="font-['DM_Sans'] text-4xl leading-[48px] relative text-left whitespace-nowrap">
-              <span className="font-medium text-black">Generate </span>
-              <span className="font-bold text-[#fcae17]">Profile </span>
-              <span className="font-bold text-[#fcae17]">Frames</span>
+            <h1 className="relative text-left whitespace-nowrap font-normal font-size-[36px] font-weight-[500] line-height-[48px]">
+              <span className="text-4xl leading-[48px] font-['DM_Sans'] font-medium text-black">Generate </span>
+              <span className="text-4xl font-weight-[700] leading-[48px] font-['DM_Sans'] font-bold text-[#fcae17]">Profile </span>
+              <span className="text-4xl font-weight-[700] leading-[48px] font-['DM_Sans'] font-bold text-[#fcae17]">Frames</span>
             </h1>
-            <p className="font-['DM_Sans'] text-lg leading-6 text-[#626262] relative">
+            <p className="font-['DM_Sans'] text-base leading-[24px] text-[#636363] relative">
               Customize your Socials profile picture with a badge or frame in just a few clicks.
             </p>
           </div>
@@ -445,36 +445,36 @@ export function ProfileFrameGenerator() {
         </div>
 
         <div className="flex flex-col items-center gap-4">
-          <div className="relative w-[300px] h-[300px] rounded-full overflow-hidden">
-            {rawImage ? (
-              <div className="relative w-full h-full">
-                <Cropper
-                  image={rawImage}
-                  crop={crop}
-                  zoom={zoom}
-                  aspect={1}
-                  cropShape="round"
-                  showGrid={false}
-                  objectFit="cover"
-                  cropSize={{ width: 300, height: 300 }}
-                  onCropChange={setCrop}
-                  onZoomChange={setZoom}
-                  onCropComplete={handleCropComplete}
-                  zoomWithScroll={true}
-                />
-                <FrameOverlay />
-              </div>
-            ) : (
-              <div 
-                className="w-full h-full flex items-center justify-center bg-gray-100"
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <Button variant="outline">
-                  <Upload className="mr-2 h-4 w-4" />
-                  Upload Image
-                </Button>
-              </div>
-            )}
+            <div className="relative w-[300px] h-[300px] rounded-full overflow-hidden mt-[100px]">
+              {rawImage ? (
+                <div className="relative w-full h-full">
+                  <Cropper
+                    image={rawImage}
+                    crop={crop}
+                    zoom={zoom}
+                    aspect={1}
+                    cropShape="round"
+                    showGrid={false}
+                    objectFit="cover"
+                    cropSize={{ width: 300, height: 300 }}
+                    onCropChange={setCrop}
+                    onZoomChange={setZoom}
+                    onCropComplete={handleCropComplete}
+                    zoomWithScroll={true}
+                  />
+                  <FrameOverlay />
+                </div>
+              ) : (
+                <div 
+                  className="w-full h-full flex items-center justify-center bg-gray-100"
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <Button variant="outline">
+                    <Upload className="mr-2 h-4 w-4" />
+                    Upload Image
+                  </Button>
+                </div>
+              )}
           </div>
 
           <input
@@ -485,8 +485,8 @@ export function ProfileFrameGenerator() {
             className="hidden"
           />
 
-          <div className="main-container flex w-[484px] gap-[16px] items-center flex-nowrap relative mx-auto my-0">
-            <button
+          <div className="main-container flex w-[484px] gap-[16px] items-center flex-nowrap relative mx-auto mt-6">
+            {/* <button
               onClick={handleUpscale}
               className="flex pt-[8px] pr-[16px] pb-[8px] pl-[16px] gap-[8px] justify-center items-center grow shrink-0 basis-0 flex-nowrap rounded-[8px] border-solid border border-[#000] relative"
             >
@@ -509,10 +509,10 @@ export function ProfileFrameGenerator() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </button>
+            </button> */}
             <button
               onClick={() => handleDownload('png')}
-              className="flex pt-[8px] pr-[16px] pb-[8px] pl-[16px] gap-[8px] justify-center items-center grow shrink-0 basis-0 flex-nowrap rounded-[8px] relative border-none"
+              className="flex pt-[8px] pr-[16px] pb-[8px] pl-[16px] gap-[8px] justify-center items-center grow shrink-0 basis-0 flex-nowrap rounded-[8px] relative  border-none max-w-[360px] ml-auto mr-auto"
               style={{
                 background: 'linear-gradient(108deg, #FFD200 40.85%, #F7971E 98.66%), #FD942B'
               }}
