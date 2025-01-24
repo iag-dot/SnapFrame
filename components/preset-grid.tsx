@@ -110,7 +110,7 @@ export function PresetGrid() {
         // Draw main solid background
         ctx.beginPath()
         ctx.arc(200, 200, 180, textStartAngle, textEndAngle, true)
-        ctx.lineWidth = 45
+        ctx.lineWidth = 60
         ctx.strokeStyle = config.backgroundColor
         ctx.stroke()
 
