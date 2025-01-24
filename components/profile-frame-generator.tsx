@@ -71,17 +71,18 @@ export function ProfileFrameGenerator() {
         ctx.drawImage(img, x, y, scaledWidth, scaledHeight)
 
         // Prepare text with formatting
-        const displayText = frameConfig.text.toUpperCase()
-        ctx.font = `bold ${frameConfig.textSize}px Inter`
+        const displayText = frameConfig.text
+        ctx.font = `bold ${frameConfig.textSize}px Arial`
 
-        // Configure letter spacing
-        const letterSpacing = 24 * 0.15
-        const textWidth = ctx.measureText(displayText).width + (letterSpacing * (displayText.length - 1))
+        // Calculate the total angle for the text arc
+        const totalTextWidth = ctx.measureText(displayText).width
+        const letterSpacing = frameConfig.textSize * 0.15 // or 24 * 0.15 for preset grid
+        const totalWidth = totalTextWidth + (letterSpacing * (displayText.length - 1))
         const radius = 175
 
         // Calculate arc dimensions
         const circumference = 2 * Math.PI * radius
-        const textArcLength = (textWidth / circumference) * (2 * Math.PI)
+        const textArcLength = (totalWidth / circumference) * (2 * Math.PI)
         const centerPosition = Math.PI * 0.75
         const textStartAngle = centerPosition + (textArcLength / 2)
         const textEndAngle = centerPosition - (textArcLength / 2)
@@ -93,7 +94,7 @@ export function ProfileFrameGenerator() {
 
         // Draw main solid background
         ctx.beginPath()
-        ctx.arc(200, 200, 180, textStartAngle, textEndAngle, true)
+        ctx.arc(200, 200, 180, textStartAngle, extendedEndAngle, true)
         ctx.lineWidth = 45
         ctx.strokeStyle = frameConfig.backgroundColor
         ctx.stroke()
@@ -115,10 +116,10 @@ export function ProfileFrameGenerator() {
 
         // Draw fade-out segment at end
         const endGradient = ctx.createLinearGradient(
-          200 + radius * Math.cos(textEndAngle),
-          200 + radius * Math.sin(textEndAngle),
           200 + radius * Math.cos(extendedEndAngle),
-          200 + radius * Math.sin(extendedEndAngle)
+          200 + radius * Math.sin(extendedEndAngle),
+          200 + radius * Math.cos(textEndAngle),
+          200 + radius * Math.sin(textEndAngle)
         )
         endGradient.addColorStop(0, frameConfig.backgroundColor)
         endGradient.addColorStop(1, 'transparent')
@@ -136,17 +137,22 @@ export function ProfileFrameGenerator() {
         ctx.save()
         ctx.translate(200, 200)
 
-        const totalAngle = -(textArcLength) / (displayText.length - 1)
+        // When drawing the text, apply consistent spacing
         for (let i = 0; i < displayText.length; i++) {
-          const angle = textStartAngle + (i * totalAngle)
-          const x = radius * Math.cos(angle)
-          const y = radius * Math.sin(angle)
+            // Calculate the position for each character including letter spacing
+            const charWidth = ctx.measureText(displayText[i]).width
+            const spacingOffset = i * letterSpacing
+            const currentPos = (spacingOffset + (ctx.measureText(displayText.substring(0, i)).width))
+            const angle = textStartAngle - ((currentPos + charWidth/2) / radius)
+            
+            const x = radius * Math.cos(angle)
+            const y = radius * Math.sin(angle)
 
-          ctx.save()
-          ctx.translate(x, y)
-          ctx.rotate(angle - Math.PI / 2)
-          ctx.fillText(displayText[i], 0, 0)
-          ctx.restore()
+            ctx.save()
+            ctx.translate(x, y)
+            ctx.rotate(angle - Math.PI / 2)
+            ctx.fillText(displayText[i], 0, 0)
+            ctx.restore()
         }
 
         ctx.restore()
@@ -267,17 +273,18 @@ export function ProfileFrameGenerator() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Prepare text with formatting
-      const displayText = frameConfig.text.toUpperCase();
+      const displayText = frameConfig.text
       ctx.font = `bold ${frameConfig.textSize}px Arial`;
 
-      // Configure letter spacing
-      const letterSpacing = frameConfig.textSize * 0.15;
-      const textWidth = ctx.measureText(displayText).width + (letterSpacing * (displayText.length - 1));
+      // Calculate the total angle for the text arc
+      const totalTextWidth = ctx.measureText(displayText).width
+      const letterSpacing = frameConfig.textSize * 0.15 // or 24 * 0.15 for preset grid
+      const totalWidth = totalTextWidth + (letterSpacing * (displayText.length - 1))
       const radius = 175;
 
       // Calculate arc dimensions
       const circumference = 2 * Math.PI * radius;
-      const textArcLength = (textWidth / circumference) * (2 * Math.PI);
+      const textArcLength = (totalWidth / circumference) * (2 * Math.PI);
       const centerPosition = Math.PI * 0.75;
       const textStartAngle = centerPosition + (textArcLength / 2);
       const textEndAngle = centerPosition - (textArcLength / 2);
@@ -332,17 +339,22 @@ export function ProfileFrameGenerator() {
       ctx.save();
       ctx.translate(200, 200);
 
-      const totalAngle = -(textArcLength) / (displayText.length - 1);
+      // When drawing the text, apply consistent spacing
       for (let i = 0; i < displayText.length; i++) {
-        const angle = textStartAngle + (i * totalAngle);
-        const x = radius * Math.cos(angle);
-        const y = radius * Math.sin(angle);
+          // Calculate the position for each character including letter spacing
+          const charWidth = ctx.measureText(displayText[i]).width
+          const spacingOffset = i * letterSpacing
+          const currentPos = (spacingOffset + (ctx.measureText(displayText.substring(0, i)).width))
+          const angle = textStartAngle - ((currentPos + charWidth/2) / radius)
+          
+          const x = radius * Math.cos(angle)
+          const y = radius * Math.sin(angle)
 
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.rotate(angle - Math.PI / 2);
-        ctx.fillText(displayText[i], 0, 0);
-        ctx.restore();
+          ctx.save()
+          ctx.translate(x, y)
+          ctx.rotate(angle - Math.PI / 2)
+          ctx.fillText(displayText[i], 0, 0)
+          ctx.restore()
       }
 
       ctx.restore();
