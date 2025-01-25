@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { Menu } from "lucide-react"
@@ -9,6 +11,13 @@ import {
 } from "./ui/sheet"
 
 export function Navbar() {
+  const scrollToPresets = () => {
+    document.getElementById('presets')?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
+
   return (
     <header className="bg-black p-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -31,9 +40,12 @@ export function Navbar() {
           <Link href="/" className="text-white hover:text-yellow-400">
             Home
           </Link>
-          <Link href="/presets" className="text-white hover:text-yellow-400">
+          <button
+            onClick={scrollToPresets}
+            className="text-white hover:text-yellow-400"
+          >
             Presets
-          </Link>
+          </button>
         </nav>
 
         {/* Mobile Navigation */}
@@ -49,9 +61,12 @@ export function Navbar() {
               <Link href="/" className="text-white hover:text-yellow-400">
                 Home
               </Link>
-              <Link href="/presets" className="text-white hover:text-yellow-400">
+              <button
+                onClick={scrollToPresets}
+                className="text-white hover:text-yellow-400 text-left"
+              >
                 Presets
-              </Link>
+              </button>
             </nav>
           </SheetContent>
         </Sheet>
