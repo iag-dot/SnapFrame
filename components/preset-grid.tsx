@@ -39,14 +39,14 @@ const PRESET_CONFIGS = [
 ]
 
 export function PresetGrid() {
-  const { uploadedImage } = useFrame()
+  const { uploadedImage, croppedImage } = useFrame()
   const [presetImages, setPresetImages] = useState<string[]>(Array(6).fill(""))
 
   useEffect(() => {
-    if (uploadedImage) {
+    if (croppedImage) {
       // Generate frames for each preset configuration
       PRESET_CONFIGS.forEach((config, index) => {
-        generateFrame(uploadedImage, config).then((frameImage) => {
+        generateFrame(croppedImage, config).then((frameImage) => {
           setPresetImages(prev => {
             const newImages = [...prev]
             newImages[index] = frameImage
@@ -55,7 +55,7 @@ export function PresetGrid() {
         })
       })
     }
-  }, [uploadedImage])
+  }, [croppedImage])
 
   const generateFrame = async (image: string, config: typeof PRESET_CONFIGS[0]) => {
     const canvas = document.createElement('canvas')

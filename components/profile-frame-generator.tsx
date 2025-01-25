@@ -37,7 +37,7 @@ export function ProfileFrameGenerator() {
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [rawImage, setRawImage] = useState<string | null>(null)
-  const { setUploadedImage } = useFrame()
+  const { setUploadedImage, setCroppedImage } = useFrame()
 
   const generateFrame = async () => {
     if (!frameConfig.image) return
@@ -211,9 +211,11 @@ export function ProfileFrameGenerator() {
           400
         )
         
+        const croppedImageData = canvas.toDataURL('image/png')
+        setCroppedImage(croppedImageData)
         setFrameConfig(prev => ({
           ...prev,
-          image: canvas.toDataURL('image/png')
+          image: croppedImageData
         }))
         resolve(null)
       }
