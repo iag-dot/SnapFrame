@@ -379,26 +379,30 @@ export function ProfileFrameGenerator() {
   }, [frameConfig])
 
   return (
-    <div className="w-full max-w-[1202px] min-h-[559px] mx-auto flex-shrink-0 rounded-[16px] bg-white shadow-lg p-4 sm:p-6 lg:p-8">
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Left Column */}
-        <div className="w-full lg:w-[454px] flex flex-col gap-6 lg:gap-[48px] p-4 lg:p-8">
-          <div className="flex flex-col gap-2">
-            <h1 className="text-3xl sm:text-4xl leading-tight font-['DM_Sans']">
+    <div className="w-full max-w-[1202px] mx-auto bg-white rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8 mt-10">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+        {/* Left Column - Controls */}
+        <div className="w-full lg:w-[500px] flex flex-col gap-6 sm:gap-8 lg:gap-10 px-4 sm:px-6 lg:px-8">
+          {/* Header Section */}
+          <div className="space-y-3 sm:space-y-4">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-['DM_Sans'] tracking-tight">
               <span className="font-medium text-black">Generate </span>
-              <span className="font-bold text-[#fcae17]">Profile Frames</span>
+              <span className="font-bold bg-gradient-to-r from-[#fcae17] to-[#F7971E] bg-clip-text text-transparent">
+                Profile Frames
+              </span>
             </h1>
-            <p className="font-['DM_Sans'] text-sm sm:text-base leading-[24px] text-[#636363]">
+            <p className="text-[#636363] text-sm sm:text-base lg:text-lg leading-relaxed">
               Customize your Socials profile picture with a badge or frame in just a few clicks.
             </p>
           </div>
 
-          <div className="flex flex-col gap-6">
+          {/* Controls Section */}
+          <div className="space-y-6 sm:space-y-8 lg:space-y-10">
             {/* Arc Text Input */}
-            <div className="flex flex-col gap-2">
+            <div className="space-y-3">
               <Label 
                 htmlFor="arc-text"
-                className="font-['DM_Sans'] text-sm sm:text-base font-semibold text-[#363636]"
+                className="block text-[#363636] text-sm sm:text-base font-semibold"
               >
                 Arc Text
               </Label>
@@ -407,51 +411,68 @@ export function ProfileFrameGenerator() {
                 value={frameConfig.text}
                 onChange={(e) => setFrameConfig(prev => ({ ...prev, text: e.target.value }))}
                 placeholder="Enter text for the arc"
-                className="bg-[rgba(0,0,0,0.04)] border-[rgba(0,0,0,0.2)] p-3 font-['Manrope']"
+                className="w-full h-12 sm:h-14 bg-[rgba(0,0,0,0.02)] border border-[rgba(0,0,0,0.1)] 
+                          rounded-xl px-4 sm:px-5 text-sm sm:text-base transition-all duration-200 
+                          hover:bg-[rgba(0,0,0,0.03)] focus:ring-2 focus:ring-yellow-400/50 
+                          focus:border-yellow-400"
               />
             </div>
 
             {/* Color Controls */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
               {/* Arc Color */}
-              <div className="w-full sm:w-1/2">
+              <div className="space-y-3">
                 <Label 
                   htmlFor="background-color"
-                  className="font-['DM_Sans'] text-sm sm:text-base font-semibold text-[#363636]"
+                  className="block text-[#363636] text-sm sm:text-base font-semibold"
                 >
                   Arc Color
                 </Label>
-                <div className="flex gap-2 items-center bg-[rgba(0,0,0,0.04)] rounded-lg border border-[rgba(0,0,0,0.2)] p-3 mt-2">
-                  <Input
-                    id="background-color"
-                    type="color"
-                    value={frameConfig.backgroundColor}
-                    onChange={(e) => setFrameConfig(prev => ({ ...prev, backgroundColor: e.target.value }))}
-                    className="w-6 h-6 p-0 rounded-full border-none"
-                  />
-                  <span className="font-['Manrope'] text-sm sm:text-base font-medium text-[#363636]">
+                <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-[rgba(0,0,0,0.02)] 
+                              border border-[rgba(0,0,0,0.1)] rounded-xl transition-all duration-200 
+                              hover:bg-[rgba(0,0,0,0.03)]">
+                  <div className="relative group">
+                    <Input
+                      id="background-color"
+                      type="color"
+                      value={frameConfig.backgroundColor}
+                      onChange={(e) => setFrameConfig(prev => ({ ...prev, backgroundColor: e.target.value }))}
+                      className="w-10 h-10 rounded-lg border-none cursor-pointer 
+                                transition-transform duration-200 group-hover:scale-110 
+                                focus:ring-2 focus:ring-yellow-400/50"
+                    />
+                    <div className="absolute inset-0 rounded-lg shadow-sm pointer-events-none" />
+                  </div>
+                  <span className="font-medium text-[#363636] text-sm sm:text-base">
                     {frameConfig.backgroundColor.toUpperCase()}
                   </span>
                 </div>
               </div>
 
               {/* Text Color */}
-              <div className="w-full sm:w-1/2">
+              <div className="space-y-3">
                 <Label 
                   htmlFor="text-color"
-                  className="font-['DM_Sans'] text-sm sm:text-base font-semibold text-[#363636]"
+                  className="block text-[#363636] text-sm sm:text-base font-semibold"
                 >
                   Text Color
                 </Label>
-                <div className="flex gap-2 items-center bg-[rgba(0,0,0,0.04)] rounded-lg border border-[rgba(0,0,0,0.2)] p-3 mt-2">
-                  <Input
-                    id="text-color"
-                    type="color"
-                    value={frameConfig.textColor}
-                    onChange={(e) => setFrameConfig(prev => ({ ...prev, textColor: e.target.value }))}
-                    className="w-6 h-6 p-0 rounded-full border-none"
-                  />
-                  <span className="font-['Manrope'] text-sm sm:text-base font-medium text-[#363636]">
+                <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-[rgba(0,0,0,0.02)] 
+                              border border-[rgba(0,0,0,0.1)] rounded-xl transition-all duration-200 
+                              hover:bg-[rgba(0,0,0,0.03)]">
+                  <div className="relative group">
+                    <Input
+                      id="text-color"
+                      type="color"
+                      value={frameConfig.textColor}
+                      onChange={(e) => setFrameConfig(prev => ({ ...prev, textColor: e.target.value }))}
+                      className="w-10 h-10 rounded-lg border-none cursor-pointer 
+                                transition-transform duration-200 group-hover:scale-110 
+                                focus:ring-2 focus:ring-yellow-400/50"
+                    />
+                    <div className="absolute inset-0 rounded-lg shadow-sm pointer-events-none" />
+                  </div>
+                  <span className="font-medium text-[#363636] text-sm sm:text-base">
                     {frameConfig.textColor.toUpperCase()}
                   </span>
                 </div>
@@ -461,10 +482,12 @@ export function ProfileFrameGenerator() {
         </div>
 
         {/* Right Column - Preview */}
-        <div className="w-full lg:w-1/2 flex flex-col items-center gap-6">
-          <div className="relative w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] rounded-full overflow-hidden">
+        <div className="w-full lg:w-1/2 flex flex-col items-center gap-6 sm:gap-8 lg:gap-10 
+                      mt-6 lg:mt-0 px-4 sm:px-0">
+          <div className="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] lg:w-[340px] lg:h-[340px] 
+                        rounded-full overflow-hidden shadow-xl">
             {rawImage ? (
-              <div className="relative w-full h-full">
+              <div className="relative w-full h-full animate-fade-in">
                 <Cropper
                   image={rawImage}
                   crop={crop}
@@ -473,7 +496,10 @@ export function ProfileFrameGenerator() {
                   cropShape="round"
                   showGrid={false}
                   objectFit="cover"
-                  cropSize={{ width: 300, height: 300 }}
+                  cropSize={{ 
+                    width: window.innerWidth < 640 ? 280 : window.innerWidth < 1024 ? 320 : 340,
+                    height: window.innerWidth < 640 ? 280 : window.innerWidth < 1024 ? 320 : 340
+                  }}
                   onCropChange={setCrop}
                   onZoomChange={setZoom}
                   onCropComplete={handleCropComplete}
@@ -483,11 +509,16 @@ export function ProfileFrameGenerator() {
               </div>
             ) : (
               <div 
-                className="w-full h-full flex items-center justify-center bg-gray-100 cursor-pointer"
+                className="w-full h-full flex items-center justify-center bg-[rgba(0,0,0,0.02)] 
+                          cursor-pointer transition-all duration-300 hover:bg-[rgba(0,0,0,0.04)] group"
                 onClick={() => fileInputRef.current?.click()}
               >
-                <Button variant="outline" className="text-sm sm:text-base">
-                  <Upload className="mr-2 h-4 w-4" />
+                <Button 
+                  variant="outline" 
+                  className="gap-2 sm:gap-3 text-base sm:text-lg font-medium bg-white/80 
+                            hover:bg-white/90 transition-all duration-300 group-hover:scale-105"
+                >
+                  <Upload className="w-5 h-5 sm:w-6 sm:h-6" />
                   Upload Image
                 </Button>
               </div>
@@ -503,17 +534,18 @@ export function ProfileFrameGenerator() {
           />
 
           {/* Download Button */}
-          <div className="w-full max-w-[360px] px-4">
-            <button
-              onClick={() => handleDownload('png')}
-              className="w-full flex py-2 px-4 sm:py-3 sm:px-6 gap-2 justify-center items-center rounded-lg text-[#232323] font-['Manrope'] text-sm sm:text-base font-extrabold"
-              style={{
-                background: 'linear-gradient(108deg, #FFD200 40.85%, #F7971E 98.66%), #FD942B'
-              }}
-            >
-              Download
-            </button>
-          </div>
+          <button
+            onClick={() => handleDownload('png')}
+            disabled={!generatedImage}
+            className="w-full max-w-[300px] sm:max-w-[340px] lg:max-w-[360px] h-12 sm:h-14 
+                     rounded-xl font-bold text-[#232323] text-base sm:text-lg
+                     bg-gradient-to-r from-[#FFD200] to-[#F7971E] 
+                     transition-all duration-300 hover:opacity-90 hover:shadow-lg
+                     disabled:opacity-50 disabled:cursor-not-allowed
+                     transform hover:-translate-y-0.5"
+          >
+            Download Frame
+          </button>
         </div>
       </div>
     </div>
