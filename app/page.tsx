@@ -12,7 +12,7 @@ export default function Home() {
       <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-gray-50">
         <Navbar />
         
-        <main className="max-w-7xl mx-auto px-4 py-8 space-y-16">
+        <main className="max-w-7xl mx-auto px-4 py-4 sm:py-8 space-y-8 sm:space-y-16">
           <ProfileFrameGenerator />
           <PresetGrid />
           {/* <Campaign /> */}

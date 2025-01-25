@@ -18,10 +18,10 @@ export function Navbar() {
             alt="Motilal Oswal"
             width={120}
             height={40}
-            className="h-8 w-auto"
+            className="h-6 w-auto sm:h-8"
           />
-          <div className="h-5 w-px bg-gray-600" />
-          <p className="text-[#F8FAFC] font-mono text-[20px] font-normal font-600 leading-[28px] tracking-[-0.5px]">
+          <div className="h-5 w-px bg-gray-600 hidden sm:block" />
+          <p className="text-[#F8FAFC] font-mono text-base sm:text-[20px] font-normal font-600 leading-[28px] tracking-[-0.5px]">
             SnapFrame
           </p>
         </div>
@@ -40,7 +40,7 @@ export function Navbar() {
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="md:hidden text-white">
-              <Menu className="h-6 w-6" />
+              <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
               <span className="sr-only">Toggle menu</span>
             </Button>
           </SheetTrigger>
