@@ -15,6 +15,7 @@ interface FrameConfig {
   backgroundColor: string
   textSize: number
   image: string | null
+  campaignName: string
 }
 
 interface CroppedAreaPixels {
@@ -24,13 +25,19 @@ interface CroppedAreaPixels {
   y: number
 }
 
+interface Campaign {
+  id: string
+  name: string
+}
+
 export function ProfileFrameGenerator() {
   const [frameConfig, setFrameConfig] = useState<FrameConfig>({
     text: "The Man From Motilal Oswal",
     textColor: "#FFFFFF",
     backgroundColor: "#767777",
     textSize: 24,
-    image: null
+    image: null,
+    campaignName: ""
   })
   const [generatedImage, setGeneratedImage] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -38,6 +45,13 @@ export function ProfileFrameGenerator() {
   const [zoom, setZoom] = useState(1)
   const [rawImage, setRawImage] = useState<string | null>(null)
   const { setUploadedImage, setCroppedImage } = useFrame()
+
+  const campaigns: Campaign[] = [
+    { id: '1', name: 'Knowledge First' },
+    { id: '2', name: 'Think Equity' },
+    { id: '3', name: 'MO Investor' },
+    // Add more campaigns as needed
+  ]
 
   const generateFrame = async () => {
     if (!frameConfig.image) return
@@ -406,7 +420,27 @@ export function ProfileFrameGenerator() {
               >
                 Arc Text
               </Label>
-              <Input
+              <select
+                id="campaign-name"
+                value={frameConfig.campaignName}
+                onChange={(e) => setFrameConfig(prev => ({ 
+                  ...prev, 
+                  campaignName: e.target.value,
+                  text: e.target.value || "The Man From Motilal Oswal" // Use default text if no campaign selected
+                }))}
+                className="w-full h-12 sm:h-14 bg-[rgba(0,0,0,0.02)] border border-[rgba(0,0,0,0.1)] 
+                          rounded-xl px-4 sm:px-5 text-sm sm:text-base transition-all duration-200 
+                          hover:bg-[rgba(0,0,0,0.03)] focus:ring-2 focus:ring-yellow-400/50 
+                          focus:border-yellow-400"
+              >
+                <option value="">Select Campaign</option>
+                {campaigns.map((campaign) => (
+                  <option key={campaign.id} value={campaign.name}>
+                    {campaign.name}
+                  </option>
+                ))}
+              </select>
+              {/* <Input
                 id="arc-text"
                 value={frameConfig.text}
                 onChange={(e) => setFrameConfig(prev => ({ ...prev, text: e.target.value }))}
@@ -415,7 +449,7 @@ export function ProfileFrameGenerator() {
                           rounded-xl px-4 sm:px-5 text-sm sm:text-base transition-all duration-200 
                           hover:bg-[rgba(0,0,0,0.03)] focus:ring-2 focus:ring-yellow-400/50 
                           focus:border-yellow-400"
-              />
+              /> */}
             </div>
 
             {/* Color Controls */}
