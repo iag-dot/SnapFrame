@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'SnapFrame',
   description: 'this is a snapframe',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/images/favicon.ico',
   },
 }
 

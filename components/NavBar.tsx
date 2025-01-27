@@ -19,17 +19,24 @@ export function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-black/95 backdrop-blur-sm p-4 border-b border-gray-800">
+    <header className="sticky top-0 z-50 bg-[#2E2A94] backdrop-blur-sm p-4 border-b border-gray-800">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-3 transition-all duration-300 hover:opacity-80">
           <Image
-            src="images/motilal-oswal-logo.png"
+            src="/images/Motilal new logo.svg"
             alt="Motilal Oswal"
             width={120}
             height={40}
             className="h-8 w-auto sm:h-10 transition-transform duration-300 hover:scale-105"
           />
           <div className="h-6 w-px bg-gray-600 hidden sm:block" />
+          <Image
+            src="/images/favicon-32x32.png"
+            alt="Motilal Oswal"
+            width={20}
+            height={20}
+            className="h-8 w-auto sm:h-10 transition-transform duration-300 hover:scale-105"
+          />
           <p className="text-[#F8FAFC] font-mono text-lg sm:text-xl font-semibold tracking-tight">
             SnapFrame
           </p>

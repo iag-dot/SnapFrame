@@ -452,26 +452,33 @@ export function ProfileFrameGenerator() {
               >
                 Arc Text
               </Label>
-              <select
-                id="campaign-name"
-                value={frameConfig.campaignName}
-                onChange={(e) => setFrameConfig(prev => ({ 
-                  ...prev, 
-                  campaignName: e.target.value,
-                  text: e.target.value || "The Man From Motilal Oswal" // Use default text if no campaign selected
-                }))}
-                className="w-full h-12 sm:h-14 bg-[rgba(0,0,0,0.02)] border border-[rgba(0,0,0,0.1)] 
-                          rounded-xl px-4 sm:px-5 text-sm sm:text-base transition-all duration-200 
-                          hover:bg-[rgba(0,0,0,0.03)] focus:ring-2 focus:ring-yellow-400/50 
-                          focus:border-yellow-400"
-              >
-                <option value="">Select Campaign</option>
-                {campaigns.map((campaign) => (
-                  <option key={campaign.id} value={campaign.name}>
-                    {campaign.name}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  id="campaign-name"
+                  value={frameConfig.campaignName}
+                  onChange={(e) => setFrameConfig(prev => ({ 
+                    ...prev, 
+                    campaignName: e.target.value,
+                    text: e.target.value || "The Man From Motilal Oswal" // Use default text if no campaign selected
+                  }))}
+                  className="w-full h-12 sm:h-14 bg-[rgba(0,0,0,0.02)] border border-[rgba(0,0,0,0.1)] 
+                            rounded-xl px-4 sm:px-5 text-sm sm:text-base transition-all duration-200 
+                            hover:bg-[rgba(0,0,0,0.03)] focus:ring-2 focus:ring-yellow-400/50 
+                            focus:border-yellow-400 appearance-none"
+                >
+                  <option value="">Select Campaign</option>
+                  {campaigns.map((campaign) => (
+                    <option key={campaign.id} value={campaign.name}>
+                      {campaign.name}
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                  <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                  </svg>
+                </div>
+              </div>
               {/* <Input
                 id="arc-text"
                 value={frameConfig.text}

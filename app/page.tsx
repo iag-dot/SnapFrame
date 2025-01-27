@@ -9,7 +9,7 @@ import { Footer } from "@/components/Footer"
 export default function Home() {
   return (
     <FrameProvider>
-      <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-gray-50 relative">
+      <div className="min-h-screen bg-[#F3F6F8] relative">
         {/* Gradient background with glassmorphism */}
         <div className="absolute top-0 left-0 right-0 h-[400px] 
                       bg-gradient-to-r from-yellow-400/40 via-amber-300/40 to-yellow-200/40 
