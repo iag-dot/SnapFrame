@@ -8,6 +8,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import React from "react"
 import { useFrame } from "@/contexts/FrameContext"
+import { DownloadForm } from "@/components/download-form"
+import { toast } from "@/components/ui/use-toast"
+import { useSession } from "@/hooks/use-session"
 
 interface FrameConfig {
   text: string
@@ -31,6 +34,7 @@ interface Campaign {
 }
 
 export function ProfileFrameGenerator() {
+  const { sessionData, saveSession, incrementDownloadCount } = useSession()
   const [frameConfig, setFrameConfig] = useState<FrameConfig>({
     text: "The Man From Motilal Oswal",
     textColor: "#FFFFFF",
@@ -45,6 +49,7 @@ export function ProfileFrameGenerator() {
   const [zoom, setZoom] = useState(1)
   const [rawImage, setRawImage] = useState<string | null>(null)
   const { setUploadedImage, setCroppedImage } = useFrame()
+  const [showDownloadForm, setShowDownloadForm] = useState(false)
 
   const campaigns: Campaign[] = [
     { id: '1', name: 'Knowledge First' },
@@ -236,14 +241,41 @@ export function ProfileFrameGenerator() {
     })
   }
 
-  const handleDownload = (format: 'png' | 'jpg') => {
-    if (!generatedImage) return
+  const handleDownload = (format: string) => {
+    if (!generatedImage) return;
+
+    if (sessionData) {
+      // User has already filled the form before
+      downloadImage();
+      incrementDownloadCount();
+    } else {
+      // First time user - show form
+      setShowDownloadForm(true);
+    }
+  };
+
+  const handleFormSubmit = async (formData: { name: string; email: string; whatsapp: string }) => {
+    // Save session data for future downloads
+    saveSession({
+      ...formData,
+      downloadCount: 0
+    });
     
-    const link = document.createElement("a")
-    link.download = `profile-frame.${format}`
-    link.href = generatedImage
-    link.click()
-  }
+    // Proceed with download
+    downloadImage();
+    await incrementDownloadCount();
+  };
+
+  const downloadImage = () => {
+    if (!generatedImage) return;
+    
+    const link = document.createElement('a');
+    link.href = generatedImage;
+    link.download = `profile-frame-${Date.now()}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const handleUpscale = async () => {
     if (!generatedImage) return
@@ -582,6 +614,11 @@ export function ProfileFrameGenerator() {
           </button>
         </div>
       </div>
+      <DownloadForm 
+        open={showDownloadForm} 
+        onOpenChange={setShowDownloadForm}
+        onSubmit={(formData: { name: string; email: string; whatsapp: string }) => handleFormSubmit(formData)}
+      />
     </div>
   )
 }

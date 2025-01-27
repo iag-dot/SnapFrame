@@ -4,6 +4,8 @@ import Image from "next/image"
 import { useFrame } from "@/contexts/FrameContext"
 import { useState, useEffect } from "react"
 import { Download } from "lucide-react"
+import { useSession } from "@/hooks/use-session"
+import { DownloadForm } from "@/components/download-form"
 
 const PRESET_CONFIGS = [
   {
@@ -39,8 +41,11 @@ const PRESET_CONFIGS = [
 ]
 
 export function PresetGrid() {
+  const { sessionData, saveSession, incrementDownloadCount } = useSession()
   const { uploadedImage, croppedImage } = useFrame()
   const [presetImages, setPresetImages] = useState<string[]>(Array(6).fill(""))
+  const [showDownloadForm, setShowDownloadForm] = useState(false)
+  const [selectedPresetImage, setSelectedPresetImage] = useState<string | null>(null)
 
   useEffect(() => {
     if (croppedImage) {
@@ -173,6 +178,42 @@ export function PresetGrid() {
     return canvas.toDataURL('image/png')
   }
 
+  const handlePresetDownload = (presetImage: string) => {
+    if (sessionData) {
+      // User has already filled the form before
+      downloadImage(presetImage);
+      incrementDownloadCount();
+    } else {
+      // First time user - show form
+      setSelectedPresetImage(presetImage);
+      setShowDownloadForm(true);
+    }
+  };
+
+  const handleFormSubmit = async (formData: { name: string; email: string; whatsapp: string }) => {
+    if (selectedPresetImage) {
+      // Save session data for future downloads
+      saveSession({
+        ...formData,
+        downloadCount: 0
+      });
+      
+      // Proceed with download
+      downloadImage(selectedPresetImage);
+      await incrementDownloadCount();
+      setShowDownloadForm(false);
+    }
+  };
+
+  const downloadImage = (imageUrl: string) => {
+    const link = document.createElement("a");
+    link.download = `preset-frame-${Date.now()}.png`;
+    link.href = imageUrl;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (!uploadedImage) {
     return (
       <section className="space-y-8">
@@ -201,12 +242,7 @@ export function PresetGrid() {
                     className="w-full h-full object-cover rounded-full"
                   />
                   <button
-                    onClick={() => {
-                      const link = document.createElement("a")
-                      link.download = `preset-frame-${i + 1}.png`
-                      link.href = presetImage
-                      link.click()
-                    }}
+                    onClick={() => handlePresetDownload(presetImage)}
                     className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow"
                   >
                     <Download className="w-5 h-5 text-gray-600" />
@@ -222,6 +258,12 @@ export function PresetGrid() {
           </div>
         ))}
       </div>
+      <DownloadForm 
+        open={showDownloadForm}
+        onOpenChange={setShowDownloadForm}
+        onSubmit={handleFormSubmit}
+        sessionData={sessionData}
+      />
     </section>
   )
 }
