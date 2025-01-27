@@ -1,5 +1,5 @@
 "use client"
-
+import "@/styles/globals.css"
 import Image from "next/image"
 import { useFrame } from "@/contexts/FrameContext"
 import { useState, useEffect } from "react"
@@ -93,7 +93,7 @@ export function PresetGrid() {
 
         // Reference the text and frame logic from ProfileFrameGenerator
         const displayText = config.text.toUpperCase()
-        ctx.font = `bold 24px Arial`
+        ctx.font = `bold 24px Poppins`
 
         // Configure letter spacing
         const letterSpacing = 24 * 0.15

@@ -1,5 +1,5 @@
 "use client"
-
+import "@/styles/globals.css"
 import { useState, useRef, useEffect } from "react"
 import { Upload } from "lucide-react"
 import Cropper from 'react-easy-crop'
@@ -91,7 +91,7 @@ export function ProfileFrameGenerator() {
 
         // Prepare text with formatting
         const displayText = frameConfig.text
-        ctx.font = `bold ${frameConfig.textSize}px Arial`
+        ctx.font = `bold ${frameConfig.textSize}px Poppins`
 
         // Calculate the total angle for the text arc
         const totalTextWidth = ctx.measureText(displayText).width
@@ -322,7 +322,7 @@ export function ProfileFrameGenerator() {
 
       // Prepare text with formatting
       const displayText = frameConfig.text
-      ctx.font = `bold ${frameConfig.textSize}px Arial`;
+      ctx.font = `bold ${frameConfig.textSize}px Poppins`;
 
       // Calculate the total angle for the text arc
       const totalTextWidth = ctx.measureText(displayText).width
@@ -437,7 +437,7 @@ export function ProfileFrameGenerator() {
                 Profile Frames
               </span>
             </h1>
-            <p className="text-[#636363] text-sm sm:text-base lg:text-lg leading-relaxed">
+            <p style={{ color: '#636363', fontFamily: 'Poppins', fontSize: '18px', fontStyle: 'normal', fontWeight: '500', lineHeight: '24px' }}>
               Customize your Socials profile picture with a badge or frame in just a few clicks.
             </p>
           </div>
