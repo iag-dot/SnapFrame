@@ -431,13 +431,13 @@ export function ProfileFrameGenerator() {
         <div className="w-full lg:w-[500px] flex flex-col gap-6 sm:gap-8 lg:gap-10 px-4 sm:px-6 lg:px-8">
           {/* Header Section */}
           <div className="space-y-3 sm:space-y-4">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-['DM_Sans'] tracking-tight">
-              <span className="font-medium text-black">Generate </span>
+            <h1 className="max-[485px]:!text-[24px] max-[485px]:!leading-[28px]" style={{ fontFamily: 'Butler', fontSize: '36px', fontWeight: '800', lineHeight: '48px', fontStyle: 'normal' }}>
+              <span className="font-medium text-[#2E2A94]">Generate </span>
               <span className="font-bold bg-gradient-to-r from-[#fcae17] to-[#F7971E] bg-clip-text text-transparent">
                 Profile Frames
               </span>
             </h1>
-            <p style={{ color: '#636363', fontFamily: 'Poppins', fontSize: '18px', fontStyle: 'normal', fontWeight: '500', lineHeight: '24px' }}>
+            <p className="text-base text-[#2E2A94] sm:text-lg lg:text-xl font-['Poppins'] font-medium leading-[24px]">
               Customize your Socials profile picture with a badge or frame in just a few clicks.
             </p>
           </div>
@@ -448,7 +448,7 @@ export function ProfileFrameGenerator() {
             <div className="space-y-3">
               <Label 
                 htmlFor="arc-text"
-                className="block text-[#363636] text-sm sm:text-base font-semibold"
+                className="block text-[#2E2A94] text-sm sm:text-base font-semibold"
               >
                 Arc Text
               </Label>
@@ -497,7 +497,7 @@ export function ProfileFrameGenerator() {
               <div className="space-y-3">
                 <Label 
                   htmlFor="background-color"
-                  className="block text-[#363636] text-sm sm:text-base font-semibold"
+                  className="block text-[#2E2A94] text-sm sm:text-base font-semibold"
                 >
                   Arc Color
                 </Label>
@@ -526,7 +526,7 @@ export function ProfileFrameGenerator() {
               <div className="space-y-3">
                 <Label 
                   htmlFor="text-color"
-                  className="block text-[#363636] text-sm sm:text-base font-semibold"
+                  className="block text-[#2E2A94] text-sm sm:text-base font-semibold"
                 >
                   Text Color
                 </Label>
