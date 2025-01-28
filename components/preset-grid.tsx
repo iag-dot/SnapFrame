@@ -127,6 +127,8 @@ export function PresetGrid() {
           200 + radius * Math.sin(textStartAngle)
         )
         startGradient.addColorStop(0, 'transparent')
+        startGradient.addColorStop(0.1, 'transparent')
+        startGradient.addColorStop(0.8, config.backgroundColor)
         startGradient.addColorStop(1, config.backgroundColor)
 
         ctx.beginPath()
@@ -142,6 +144,8 @@ export function PresetGrid() {
           200 + radius * Math.sin(extendedEndAngle)
         )
         endGradient.addColorStop(0, config.backgroundColor)
+        endGradient.addColorStop(0.2, config.backgroundColor)
+        endGradient.addColorStop(0.9, 'transparent')
         endGradient.addColorStop(1, 'transparent')
 
         ctx.beginPath()

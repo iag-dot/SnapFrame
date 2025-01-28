@@ -38,7 +38,7 @@ export function ProfileFrameGenerator() {
   const [frameConfig, setFrameConfig] = useState<FrameConfig>({
     text: "The Man From Motilal Oswal",
     textColor: "#FFFFFF",
-    backgroundColor: "#767777",
+    backgroundColor: "#2E2A94",
     textSize: 24,
     image: null,
     campaignName: ""
@@ -357,6 +357,8 @@ export function ProfileFrameGenerator() {
         200 + radius * Math.sin(textStartAngle)
       );
       startGradient.addColorStop(0, 'transparent');
+      startGradient.addColorStop(0.1, 'transparent'); // Start fading at 40%
+      startGradient.addColorStop(0.8, frameConfig.backgroundColor); // Solid color by 70%
       startGradient.addColorStop(1, frameConfig.backgroundColor);
 
       ctx.beginPath();
@@ -372,6 +374,8 @@ export function ProfileFrameGenerator() {
         200 + radius * Math.sin(extendedEndAngle)
       );
       endGradient.addColorStop(0, frameConfig.backgroundColor);
+      endGradient.addColorStop(0.2, frameConfig.backgroundColor); // Keep solid until 30%
+      endGradient.addColorStop(0.9, 'transparent'); // Fade out by 60%
       endGradient.addColorStop(1, 'transparent');
 
       ctx.beginPath();
