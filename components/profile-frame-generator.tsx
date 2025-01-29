@@ -436,13 +436,13 @@ export function ProfileFrameGenerator() {
           {/* Header Section */}
           <div className="space-y-3 sm:space-y-4">
             <h1 className="max-[485px]:!text-[24px] max-[485px]:!leading-[28px]" style={{ fontFamily: 'Butler', fontSize: '36px', fontWeight: '800', lineHeight: '48px', fontStyle: 'normal' }}>
-              <span className="font-medium text-[#2E2A94]">Generate </span>
+              <span className="font-medium text-[#2E2A94]">Generate Your </span>
               <span className="font-bold bg-gradient-to-r from-[#fcae17] to-[#F7971E] bg-clip-text text-transparent">
-                Profile Frames
+                Arc Of Essence Frame
               </span>
             </h1>
             <p className="text-base text-[#2E2A94] sm:text-lg lg:text-xl font-['Poppins'] font-medium leading-[24px]">
-              Customize your Socials profile picture with a badge or frame in just a few clicks.
+            Download your picture with a frame in just a few clicks.
             </p>
           </div>
 
@@ -497,16 +497,16 @@ export function ProfileFrameGenerator() {
             </div>
 
             {/* Color Controls */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+            {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8"> */}
               {/* Arc Color */}
-              <div className="space-y-3">
-                <Label 
+              {/* <div className="space-y-3"> */}
+                {/* <Label 
                   htmlFor="background-color"
                   className="block text-[#2E2A94] text-sm sm:text-base font-semibold"
                 >
                   Arc Color
-                </Label>
-                <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-[rgba(0,0,0,0.02)] 
+                </Label> */}
+                {/* <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-[rgba(0,0,0,0.02)] 
                               border border-[rgba(0,0,0,0.1)] rounded-xl transition-all duration-200 
                               hover:bg-[rgba(0,0,0,0.03)]">
                   <div className="relative group">
@@ -519,16 +519,16 @@ export function ProfileFrameGenerator() {
                                 transition-transform duration-200 group-hover:scale-110 
                                 focus:ring-2 focus:ring-yellow-400/50"
                     />
-                    <div className="absolute inset-0 rounded-lg shadow-sm pointer-events-none" />
-                  </div>
+                    <div className="absolute inset-0 rounded-lg shadow-sm pointer-events-none" /> */}
+                  {/* </div>
                   <span className="font-medium text-[#363636] text-sm sm:text-base">
                     {frameConfig.backgroundColor.toUpperCase()}
                   </span>
                 </div>
-              </div>
+              </div> */}
 
               {/* Text Color */}
-              <div className="space-y-3">
+              {/* <div className="space-y-3">
                 <Label 
                   htmlFor="text-color"
                   className="block text-[#2E2A94] text-sm sm:text-base font-semibold"
@@ -554,8 +554,8 @@ export function ProfileFrameGenerator() {
                     {frameConfig.textColor.toUpperCase()}
                   </span>
                 </div>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
           </div>
         </div>
 
@@ -612,22 +612,39 @@ export function ProfileFrameGenerator() {
           />
 
           {/* Download Button */}
-          <button
-            onClick={() => handleDownload('png')}
-            disabled={!generatedImage}
-            className="w-full max-w-[300px] sm:max-w-[340px] lg:max-w-[360px] h-12 sm:h-14 
-                     rounded-xl font-bold text-[#232323] text-base sm:text-lg
-                     bg-gradient-to-r from-[#FFD200] to-[#F7971E] 
-                     transition-all duration-300 hover:opacity-90 hover:shadow-lg
-                     disabled:opacity-50 disabled:cursor-not-allowed
-                     transform hover:-translate-y-0.5"
-          >
-            Download Frame
-          </button>
+          <div className="flex flex-col gap-4 justify-center">
+            <button
+              onClick={() => handleDownload('png')}
+              disabled={!generatedImage}
+
+
+              className=" w-[50vw] max-w-[300px] sm:max-w-[340px] lg:max-w-[360px] h-12 sm:h-14 px-[10px]
+                      rounded-xl font-bold text-[#232323] text-base sm:text-lg
+                      bg-gradient-to-r from-[#FFD200] to-[#F7971E] 
+                      transition-all duration-300 hover:opacity-90 hover:shadow-lg
+                      disabled:opacity-50 disabled:cursor-not-allowed
+                      transform hover:-translate-y-0.5"
+            >
+              Download Frame
+            </button>
+            <button
+              onClick={() => (window.location.href = 'https://wa.me/919764623390')}
+              disabled={!generatedImage}
+              className="w-full max-w-[300px] sm:max-w-[340px] lg:max-w-[360px] h-12 sm:h-14 
+                      rounded-xl font-bold text-[#232323] text-base sm:text-lg
+                      bg-gradient-to-r from-[#FFD200] to-[#F7971E] 
+                      transition-all duration-300 hover:opacity-90 hover:shadow-lg
+                      disabled:opacity-50 disabled:cursor-not-allowed
+                      transform hover:-translate-y-0.5"
+            >
+              Get on WhatsApp
+            </button>
+          </div>
         </div>
       </div>
       <DownloadForm 
         open={showDownloadForm} 
+
         onOpenChange={setShowDownloadForm}
         onSubmit={(formData: { name: string; email: string; whatsapp: string }) => handleFormSubmit(formData)}
       />

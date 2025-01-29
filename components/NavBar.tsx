@@ -38,7 +38,7 @@ export function Navbar() {
             className="h-8 w-auto sm:h-10 transition-transform duration-300 hover:scale-105"
           /> */}
           <p className="text-[#F8FAFC] font-mono text-lg sm:text-xl font-semibold tracking-tight">
-            SnapFrame
+            Arc Of Essence Frame Generator
           </p>
         </div>
 

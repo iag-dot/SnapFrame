@@ -3,7 +3,7 @@ import "@/styles/globals.css"
 
 export function Footer() {
   return (
-    <footer className="fixed bottom-0 left-0 right-0 border-t bg-white h-[60px]">
+    <footer className="border-t bg-white h-[60px]">
       <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between h-full gap-2 sm:gap-0">
         <div className="flex items-center gap-2">
           {/* <Image
@@ -13,9 +13,9 @@ export function Footer() {
             height={40}
             className="h-5 w-auto sm:h-6"
           /> */}
-          <p>SnapFrame</p>
+          <p>Arc of Essence Frame Generator</p>
         </div>
-        <p className="text-xs sm:text-sm text-gray-500">© SnapFrame. All rights reserved.</p>
+        {/* <p className="text-xs sm:text-sm text-gray-500"></p> */}
       </div>
     </footer>
   );
