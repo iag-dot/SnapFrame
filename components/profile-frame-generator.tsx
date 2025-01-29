@@ -271,7 +271,7 @@ export function ProfileFrameGenerator() {
     
     const link = document.createElement('a');
     link.href = generatedImage;
-    link.download = `profile-frame-${Date.now()}.png`;
+    link.download = `${sessionData?.name}_arcframe.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
