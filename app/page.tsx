@@ -19,7 +19,7 @@ export default function Home() {
         
         <main className="max-w-7xl mx-auto px-4 py-4 sm:py-8 space-y-8 sm:space-y-16">
           <ProfileFrameGenerator />
-          <PresetGrid />
+          {/* <PresetGrid /> */}
           {/* <Campaign /> */}
         </main>
         <Footer />
