@@ -37,8 +37,8 @@ export function Navbar() {
             height={20}
             className="h-8 w-auto sm:h-10 transition-transform duration-300 hover:scale-105"
           /> */}
-          <p className="text-[#F8FAFC] font-mono text-lg sm:text-xl font-semibold tracking-tight">
-            Arc Of Essence Frame Generator
+          <p className="text-[#F8FAFC] font-mono text-sm sm:text-xl font-semibold tracking-tight">
+            Personalised Frame Generator
           </p>
         </div>
 
