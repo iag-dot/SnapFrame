@@ -37,7 +37,7 @@ export function Navbar() {
             height={20}
             className="h-8 w-auto sm:h-10 transition-transform duration-300 hover:scale-105"
           /> */}
-          <p className="text-[#F8FAFC] font-mono text-sm sm:text-xl font-semibold tracking-tight">
+          <p className="text-[#F8FAFC] text-sm sm:text-xl font-regular tracking-tight">
             Personalised Frame Generator
           </p>
         </div>
