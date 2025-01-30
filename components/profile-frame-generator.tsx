@@ -90,6 +90,17 @@ export function ProfileFrameGenerator() {
 
         ctx.drawImage(img, x, y, scaledWidth, scaledHeight)
 
+        // Load and draw the overlay frame image
+        const overlayImg = new Image()
+        overlayImg.src = '/overlay/overlay.webp'
+
+
+        
+        overlayImg.onload = () => {
+          ctx.drawImage(overlayImg, -1, -1, canvas.width + 2, canvas.height + 2)
+          resolve(null)
+        }
+
         // Prepare text with formatting
         const displayText = frameConfig.text
         ctx.font = `bold ${frameConfig.textSize}px Poppins`
@@ -112,71 +123,69 @@ export function ProfileFrameGenerator() {
         const extendedStartAngle = textStartAngle + fadeLength
         const extendedEndAngle = textEndAngle - fadeLength
 
-        // Draw main solid background
-        ctx.beginPath()
-        ctx.arc(200, 200, 180, textStartAngle, extendedEndAngle, true)
-        ctx.lineWidth = 60
-        ctx.strokeStyle = frameConfig.backgroundColor
-        ctx.stroke()
+        // // Draw main solid background
+        // ctx.beginPath()
+        // ctx.arc(200, 200, 180, textStartAngle, extendedEndAngle, true)
+        // ctx.lineWidth = 60
+        // ctx.strokeStyle = frameConfig.backgroundColor
+        // ctx.stroke()
 
-        // Draw fade-out segment at start
-        const startGradient = ctx.createLinearGradient(
-          200 + radius * Math.cos(extendedStartAngle),
-          200 + radius * Math.sin(extendedStartAngle),
-          200 + radius * Math.cos(textStartAngle),
-          200 + radius * Math.sin(textStartAngle)
-        )
-        startGradient.addColorStop(0, 'transparent')
-        startGradient.addColorStop(1, frameConfig.backgroundColor)
+        // // Draw fade-out segment at start
+        // const startGradient = ctx.createLinearGradient(
+        //   200 + radius * Math.cos(extendedStartAngle),
+        //   200 + radius * Math.sin(extendedStartAngle),
+        //   200 + radius * Math.cos(textStartAngle),
+        //   200 + radius * Math.sin(textStartAngle)
+        // )
+        // startGradient.addColorStop(0, 'transparent')
+        // startGradient.addColorStop(1, frameConfig.backgroundColor)
 
-        ctx.beginPath()
-        ctx.arc(200, 200, 180, extendedStartAngle, textStartAngle, true)
-        ctx.strokeStyle = startGradient
-        ctx.stroke()
+        // ctx.beginPath()
+        // ctx.arc(200, 200, 180, extendedStartAngle, textStartAngle, true)
+        // ctx.strokeStyle = startGradient
+        // ctx.stroke()
 
-        // Draw fade-out segment at end
-        const endGradient = ctx.createLinearGradient(
-          200 + radius * Math.cos(extendedEndAngle),
-          200 + radius * Math.sin(extendedEndAngle),
-          200 + radius * Math.cos(textEndAngle),
-          200 + radius * Math.sin(textEndAngle)
-        )
-        endGradient.addColorStop(0, frameConfig.backgroundColor)
-        endGradient.addColorStop(1, 'transparent')
+        // // Draw fade-out segment at end
+        // const endGradient = ctx.createLinearGradient(
+        //   200 + radius * Math.cos(extendedEndAngle),
+        //   200 + radius * Math.sin(extendedEndAngle),
+        //   200 + radius * Math.cos(textEndAngle),
+        //   200 + radius * Math.sin(textEndAngle)
+        // )
+        // endGradient.addColorStop(0, frameConfig.backgroundColor)
+        // endGradient.addColorStop(1, 'transparent')
 
-        ctx.beginPath()
-        ctx.arc(200, 200, 180, textEndAngle, extendedEndAngle, true)
-        ctx.strokeStyle = endGradient
-        ctx.stroke()
+        // ctx.beginPath()
+        // ctx.arc(200, 200, 180, textEndAngle, extendedEndAngle, true)
+        // ctx.strokeStyle = endGradient
+        // ctx.stroke()
 
-        // Draw text
-        ctx.fillStyle = frameConfig.textColor
-        ctx.textAlign = 'center'
-        ctx.textBaseline = 'middle'
+        // // Draw text
+        // ctx.fillStyle = frameConfig.textColor
+        // ctx.textAlign = 'center'
+        // ctx.textBaseline = 'middle'
 
-        ctx.save()
-        ctx.translate(200, 200)
+        // ctx.save()
+        // ctx.translate(200, 200)
 
-        // When drawing the text, apply consistent spacing
-        for (let i = 0; i < displayText.length; i++) {
-            // Calculate the position for each character including letter spacing
-            const charWidth = ctx.measureText(displayText[i]).width
-            const spacingOffset = i * letterSpacing
-            const currentPos = (spacingOffset + (ctx.measureText(displayText.substring(0, i)).width))
-            const angle = textStartAngle - ((currentPos + charWidth/2) / radius)
+        // // When drawing the text, apply consistent spacing
+        // for (let i = 0; i < displayText.length; i++) {
+        //     const charWidth = ctx.measureText(displayText[i]).width
+        //     const spacingOffset = i * letterSpacing
+        //     const currentPos = (spacingOffset + (ctx.measureText(displayText.substring(0, i)).width))
+        //     const angle = textStartAngle - ((currentPos + charWidth/2) / radius)
             
-            const x = radius * Math.cos(angle)
-            const y = radius * Math.sin(angle)
+        //     const x = radius * Math.cos(angle)
+        //     const y = radius * Math.sin(angle)
 
-            ctx.save()
-            ctx.translate(x, y)
-            ctx.rotate(angle - Math.PI / 2)
-            ctx.fillText(displayText[i], 0, 0)
-            ctx.restore()
-        }
+        //     ctx.save()
+        //     ctx.translate(x, y)
+        //     ctx.rotate(angle - Math.PI / 2)
+        //     ctx.fillText(displayText[i], 0, 0)
+        //     ctx.restore()
+        // }
 
-        ctx.restore()
-        resolve(null)
+        // ctx.restore()
       }
     })
 
@@ -371,103 +380,32 @@ export function ProfileFrameGenerator() {
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
-      // Match dimensions with the download version
-      canvas.width = 400;
-      canvas.height = 400;
+      // Match canvas size to the preview container size
+      const previewSize = window.innerWidth < 640 ? 280 : 
+                         window.innerWidth < 1024 ? 320 : 340;
+      
+      canvas.width = previewSize;
+      canvas.height = previewSize;
 
-      // Make canvas transparent initially
+      // Scale the clipping circle and overlay proportionally
+      const centerPoint = previewSize / 2;
+      const clipRadius = (previewSize / 400) * 200; // Scale the 190 radius proportionally
+
+      // Create circular clipping path
+      ctx.beginPath();
+      ctx.arc(centerPoint, centerPoint, clipRadius, 0, 2 * Math.PI);
+      ctx.clip();
+
+      // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Prepare text with formatting
-      const displayText = frameConfig.text
-      ctx.font = `bold ${frameConfig.textSize}px Poppins`;
-
-      // Calculate the total angle for the text arc
-      const totalTextWidth = ctx.measureText(displayText).width
-      const letterSpacing = frameConfig.textSize * 0.15 // or 24 * 0.15 for preset grid
-      const totalWidth = totalTextWidth + (letterSpacing * (displayText.length - 1))
-      const radius = 175;
-
-      // Calculate arc dimensions
-      const circumference = 2 * Math.PI * radius;
-      const textArcLength = (totalWidth / circumference) * (2 * Math.PI);
-      const centerPosition = Math.PI * 0.75;
-      const textStartAngle = centerPosition + (textArcLength / 2);
-      const textEndAngle = centerPosition - (textArcLength / 2);
-
-      // Add fade segments
-      const fadeLength = 0.3;
-      const extendedStartAngle = textStartAngle + fadeLength;
-      const extendedEndAngle = textEndAngle - fadeLength;
-
-      // Draw main solid background
-      ctx.beginPath();
-      ctx.arc(200, 200, 180, textStartAngle, textEndAngle, true);
-      ctx.lineWidth = 60;
-      ctx.strokeStyle = frameConfig.backgroundColor;
-      ctx.stroke();
-
-      // Draw fade-out segment at start
-      const startGradient = ctx.createLinearGradient(
-        200 + radius * Math.cos(extendedStartAngle),
-        200 + radius * Math.sin(extendedStartAngle),
-        200 + radius * Math.cos(textStartAngle),
-        200 + radius * Math.sin(textStartAngle)
-      );
-      startGradient.addColorStop(0, 'transparent');
-      startGradient.addColorStop(0.1, 'transparent'); // Start fading at 40%
-      startGradient.addColorStop(0.8, frameConfig.backgroundColor); // Solid color by 70%
-      startGradient.addColorStop(1, frameConfig.backgroundColor);
-
-      ctx.beginPath();
-      ctx.arc(200, 200, 180, extendedStartAngle, textStartAngle, true);
-      ctx.strokeStyle = startGradient;
-      ctx.stroke();
-
-      // Draw fade-out segment at end
-      const endGradient = ctx.createLinearGradient(
-        200 + radius * Math.cos(textEndAngle),
-        200 + radius * Math.sin(textEndAngle),
-        200 + radius * Math.cos(extendedEndAngle),
-        200 + radius * Math.sin(extendedEndAngle)
-      );
-      endGradient.addColorStop(0, frameConfig.backgroundColor);
-      endGradient.addColorStop(0.2, frameConfig.backgroundColor); // Keep solid until 30%
-      endGradient.addColorStop(0.9, 'transparent'); // Fade out by 60%
-      endGradient.addColorStop(1, 'transparent');
-
-      ctx.beginPath();
-      ctx.arc(200, 200, 180, textEndAngle, extendedEndAngle, true);
-      ctx.strokeStyle = endGradient;
-      ctx.stroke();
-
-      // Draw text
-      ctx.fillStyle = frameConfig.textColor;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-
-      ctx.save();
-      ctx.translate(200, 200);
-
-      // When drawing the text, apply consistent spacing
-      for (let i = 0; i < displayText.length; i++) {
-          // Calculate the position for each character including letter spacing
-          const charWidth = ctx.measureText(displayText[i]).width
-          const spacingOffset = i * letterSpacing
-          const currentPos = (spacingOffset + (ctx.measureText(displayText.substring(0, i)).width))
-          const angle = textStartAngle - ((currentPos + charWidth/2) / radius)
-          
-          const x = radius * Math.cos(angle)
-          const y = radius * Math.sin(angle)
-
-          ctx.save()
-          ctx.translate(x, y)
-          ctx.rotate(angle - Math.PI / 2)
-          ctx.fillText(displayText[i], 0, 0)
-          ctx.restore()
-      }
-
-      ctx.restore();
+      // Draw the overlay frame
+      const overlayImg = new Image();
+      overlayImg.src = '/overlay/MO Profile Picture_Final.webp';
+      
+      overlayImg.onload = () => {
+        ctx.drawImage(overlayImg, 0, 0, previewSize, previewSize);
+      };
     }, [frameConfig]);
 
     return (
