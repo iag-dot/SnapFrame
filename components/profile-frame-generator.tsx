@@ -50,6 +50,7 @@ export function ProfileFrameGenerator() {
   const [rawImage, setRawImage] = useState<string | null>(null)
   const { setUploadedImage, setCroppedImage } = useFrame()
   const [showDownloadForm, setShowDownloadForm] = useState(false)
+  const [formAction, setFormAction] = useState<'download' | 'whatsapp'>('download')
 
   const campaigns: Campaign[] = [
     { id: '1', name: 'Arc Of Essence' },
@@ -250,6 +251,21 @@ export function ProfileFrameGenerator() {
       incrementDownloadCount();
     } else {
       // First time user - show form
+      setFormAction('download');
+      setShowDownloadForm(true);
+    }
+  };
+
+  const handleWhatsAppClick = () => {
+    if (!generatedImage) return;
+
+    if (sessionData) {
+      // User has already filled the form before
+      window.location.href = 'https://wa.me/919764623390';
+      incrementDownloadCount();
+    } else {
+      // First time user - show form
+      setFormAction('whatsapp');
       setShowDownloadForm(true);
     }
   };
@@ -261,8 +277,13 @@ export function ProfileFrameGenerator() {
       downloadCount: 0
     });
     
-    // Proceed with download
-    downloadImage();
+    // Proceed with selected action
+    if (formAction === 'download') {
+      downloadImage();
+    } else {
+      window.location.href = 'https://wa.me/919764623390';
+    }
+    
     await incrementDownloadCount();
   };
 
@@ -611,14 +632,12 @@ export function ProfileFrameGenerator() {
             className="hidden"
           />
 
-          {/* Download Button */}
+          {/* Download Buttons */}
           <div className="flex flex-col gap-4 justify-center">
             <button
               onClick={() => handleDownload('png')}
               disabled={!generatedImage}
-
-
-              className=" w-[50vw] max-w-[300px] sm:max-w-[340px] lg:max-w-[360px] h-12 sm:h-14 px-[10px]
+              className="w-[50vw] max-w-[300px] sm:max-w-[340px] lg:max-w-[360px] h-12 sm:h-14 px-[10px]
                       rounded-xl font-bold text-[#232323] text-base sm:text-lg
                       bg-gradient-to-r from-[#FFD200] to-[#F7971E] 
                       transition-all duration-300 hover:opacity-90 hover:shadow-lg
@@ -628,7 +647,7 @@ export function ProfileFrameGenerator() {
               Download Frame
             </button>
             <button
-              onClick={() => (window.location.href = 'https://wa.me/919764623390')}
+              onClick={handleWhatsAppClick}
               disabled={!generatedImage}
               className="w-full max-w-[300px] sm:max-w-[340px] lg:max-w-[360px] h-12 sm:h-14 
                       rounded-xl font-bold text-[#232323] text-base sm:text-lg
@@ -644,7 +663,6 @@ export function ProfileFrameGenerator() {
       </div>
       <DownloadForm 
         open={showDownloadForm} 
-
         onOpenChange={setShowDownloadForm}
         onSubmit={(formData: { name: string; email: string; whatsapp: string }) => handleFormSubmit(formData)}
       />
