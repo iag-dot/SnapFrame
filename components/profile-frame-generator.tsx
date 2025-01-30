@@ -256,7 +256,7 @@ export function ProfileFrameGenerator() {
 
     if (sessionData) {
       // User has already filled the form before
-      downloadImage();
+      downloadImage(sessionData.name);
       incrementDownloadCount();
     } else {
       // First time user - show form
@@ -317,7 +317,7 @@ export function ProfileFrameGenerator() {
   };
 
   const handleFormSubmit = async (formData: { name: string; email: string; whatsapp: string }) => {
-    // Save session data for future downloads
+    // Save session data first
     saveSession({
       ...formData,
       downloadCount: 0
@@ -325,7 +325,9 @@ export function ProfileFrameGenerator() {
     
     // Handle based on action type
     if (formAction === 'download') {
-      downloadImage();
+      // Wait for session data to be saved
+      await new Promise(resolve => setTimeout(resolve, 100));
+      downloadImage(formData.name); // Pass name directly
     } else if (formAction === 'whatsapp' && generatedImage) {
       await sendToWhatsApp(formData.whatsapp, generatedImage);
     }
@@ -333,12 +335,14 @@ export function ProfileFrameGenerator() {
     await incrementDownloadCount();
   };
 
-  const downloadImage = () => {
+  const downloadImage = (userName: string) => {
     if (!generatedImage) return;
+    
+    const fileName = `${userName}_arcframe.png`;
     
     const link = document.createElement('a');
     link.href = generatedImage;
-    link.download = `${sessionData?.name}_arcframe.png`;
+    link.download = fileName;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
