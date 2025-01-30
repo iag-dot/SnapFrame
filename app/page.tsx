@@ -22,7 +22,7 @@ export default function Home() {
           {/* <PresetGrid /> */}
           {/* <Campaign /> */}
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </FrameProvider>
   )
