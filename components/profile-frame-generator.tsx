@@ -256,17 +256,54 @@ export function ProfileFrameGenerator() {
     }
   };
 
-  const handleWhatsAppClick = () => {
+  const handleWhatsAppClick = async () => {
     if (!generatedImage) return;
 
     if (sessionData) {
       // User has already filled the form before
-      window.location.href = 'https://wa.me/919764623390';
+      await sendToWhatsApp(sessionData.whatsapp, generatedImage);
       incrementDownloadCount();
     } else {
       // First time user - show form
       setFormAction('whatsapp');
       setShowDownloadForm(true);
+    }
+  };
+
+  const sendToWhatsApp = async (phoneNumber: string, imageData: string) => {
+    try {
+      const response = await fetch('/api/send-whatsapp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phoneNumber: phoneNumber.replace(/\D/g, ''),
+          imageBase64: imageData.split(',')[1]
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.message === "API invoked successfully") {
+        toast({
+          title: "Success!",
+          description: "Your frame has been sent to WhatsApp",
+        });
+      } else {
+        throw new Error('Failed to send to WhatsApp');
+      }
+    } catch (error) {
+      console.error('Error sending to WhatsApp:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send frame to WhatsApp. Please try again.",
+        variant: "destructive"
+      });
     }
   };
 
@@ -277,11 +314,11 @@ export function ProfileFrameGenerator() {
       downloadCount: 0
     });
     
-    // Proceed with selected action
+    // Handle based on action type
     if (formAction === 'download') {
       downloadImage();
-    } else {
-      window.location.href = 'https://wa.me/919764623390';
+    } else if (formAction === 'whatsapp' && generatedImage) {
+      await sendToWhatsApp(formData.whatsapp, generatedImage);
     }
     
     await incrementDownloadCount();
