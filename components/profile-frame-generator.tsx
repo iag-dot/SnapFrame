@@ -36,7 +36,7 @@ interface Campaign {
 export function ProfileFrameGenerator() {
   const { sessionData, saveSession, incrementDownloadCount } = useSession()
   const [frameConfig, setFrameConfig] = useState<FrameConfig>({
-    text: "The Arc Of Essence",
+    text: "Arc Of Essence",
     textColor: "#FFFFFF",
     backgroundColor: "#2E2A94",
     textSize: 24,
@@ -52,7 +52,7 @@ export function ProfileFrameGenerator() {
   const [showDownloadForm, setShowDownloadForm] = useState(false)
 
   const campaigns: Campaign[] = [
-    { id: '1', name: 'The Arc Of Essence' },
+    { id: '1', name: 'Arc Of Essence' },
     // { id: '2', name: 'Think Equity' },
     // { id: '3', name: 'MO Investor' },
     // Add more campaigns as needed
@@ -463,7 +463,7 @@ export function ProfileFrameGenerator() {
                   onChange={(e) => setFrameConfig(prev => ({ 
                     ...prev, 
                     campaignName: e.target.value,
-                    text: e.target.value || "The Arc Of Essence" // Use default text if no campaign selected
+                    text: e.target.value || "Arc Of Essence" // Use default text if no campaign selected
                   }))}
                   className="w-full h-12 sm:h-14 bg-[rgba(0,0,0,0.02)] border border-[rgba(0,0,0,0.1)] 
 
