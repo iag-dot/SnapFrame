@@ -429,14 +429,14 @@ export function ProfileFrameGenerator() {
   }, [frameConfig])
 
   return (
-    <div className="w-full max-w-[1202px] mx-auto bg-white rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8 mt-10">
+    <div className="w-full max-w-[1202px] mx-auto bg-white rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8 mt-5">
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
         {/* Left Column - Controls */}
         <div className="w-full lg:w-[500px] flex flex-col gap-6 sm:gap-8 lg:gap-10 px-4 sm:px-6 lg:px-8">
           {/* Header Section */}
           <div className="space-y-3 sm:space-y-4">
             <h1 className="max-[485px]:!text-[24px] max-[485px]:!leading-[28px]" style={{ fontFamily: 'Butler', fontSize: '36px', fontWeight: '800', lineHeight: '48px', fontStyle: 'normal' }}>
-              <span className="font-medium text-[#2E2A94]">Generate Your </span>
+              <span className="font-medium text-[#2E2A94]">Generate Your </span><br/>
               <span className="font-bold bg-gradient-to-r from-[#fcae17] to-[#F7971E] bg-clip-text text-transparent">
                 Arc Of Essence Frame
               </span>
