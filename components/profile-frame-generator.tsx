@@ -92,7 +92,7 @@ export function ProfileFrameGenerator() {
 
         // Load and draw the overlay frame image
         const overlayImg = new Image()
-        overlayImg.src = '/overlay/overlay.webp'
+        overlayImg.src = '/overlay/IconEvolves.webp'
 
 
         
@@ -405,7 +405,7 @@ export function ProfileFrameGenerator() {
 
       // Draw the overlay frame
       const overlayImg = new Image();
-      overlayImg.src = '/overlay/MO Profile Picture_Final.webp';
+      overlayImg.src = '/overlay/IconEvolves.webp';
       
       overlayImg.onload = () => {
         ctx.drawImage(overlayImg, 0, 0, previewSize, previewSize);

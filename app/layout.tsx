@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'SnapFrame',
-  description: 'this is a snapframe',
+  title: 'mofilters',
+  description: 'this is a mofilters',
   icons: {
     icon: [
       {
