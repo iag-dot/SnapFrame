@@ -53,7 +53,7 @@ export function ProfileFrameGenerator() {
   const [formAction, setFormAction] = useState<'download' | 'whatsapp'>('download')
 
   const campaigns: Campaign[] = [
-    { id: '1', name: 'Icon Evolve' },
+    { id: '1', name: 'Icon Evolves' },
     // { id: '2', name: 'Think Equity' },
     // { id: '3', name: 'MO Investor' },
     // Add more campaigns as needed
